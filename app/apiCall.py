@@ -10,7 +10,7 @@ import csv
 import pandas
 
 # insert your ZWSID
-ZWSID = "X1-ZWz17dwf7615or_17jma"
+ZWSID = ""
 
 url = 'http://www.zillow.com/webservice/GetSearchResults.htm?zws-id={}&address=2114+Bigelow+Ave&citystatezip=Seattle%2C+WA'.format(ZWSID)
 
