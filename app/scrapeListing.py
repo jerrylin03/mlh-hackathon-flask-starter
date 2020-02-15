@@ -1,15 +1,21 @@
+'''
+Scrapes Zillow for properties for sale based on specifc postal code and outputs a csv file of the locations
+title, address, city, state, postal_code, price, features, as well as the url
+
+@author: Jerry Lin, Tyler Esposo, TK
+@date: 2/15/2020
+'''
 from lxml import html
+from urllib.request import Request, urlopen
 import requests
 import unicodecsv as csv
 import argparse
 import json
 
-
 def clean(text):
     if text:
         return ' '.join(' '.join(text).split())
     return None
-
 
 def get_headers():
     # Creating headers.
@@ -20,7 +26,6 @@ def get_headers():
                'upgrade-insecure-requests': '1',
                'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'}
     return headers
-
 
 def create_url(zipcode, filter):
     # Creating Zillow URL based on the filter.
@@ -34,13 +39,11 @@ def create_url(zipcode, filter):
     print(url)
     return url
 
-
 def save_to_file(response):
     # saving response to `response.html`
 
     with open("response.html", 'w') as fp:
         fp.write(response.text)
-
 
 def write_data_to_csv(data):
     # saving scraped data to csv.
@@ -51,7 +54,6 @@ def write_data_to_csv(data):
         writer.writeheader()
         for row in data:
             writer.writerow(row)
-
 
 def get_response(url):
     # Getting response from zillow.com.
@@ -110,7 +112,6 @@ def get_data_from_json(raw_json_data):
         print("Invalid json")
         return None
 
-
 def parse(zipcode, filter=None):
     url = create_url(zipcode, filter)
     response = get_response(url)
@@ -118,8 +119,11 @@ def parse(zipcode, filter=None):
     if not response:
         print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
         return None
+    
+    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    webpage = urlopen(req).read()
 
-    parser = html.fromstring(response.text)
+    parser = html.fromstring(webpage)
     search_results = parser.xpath("//div[@id='search-results']//article")
 
     if not search_results:
@@ -164,7 +168,6 @@ def parse(zipcode, filter=None):
         if is_forsale:
             properties_list.append(properties)
     return properties_list
-
 
 if __name__ == "__main__":
     # Reading arguments
