@@ -17,4 +17,7 @@ url = 'http://www.zillow.com/webservice/GetSearchResults.htm?zws-id={}&address=2
 # make request to API
 response = requests.get(url)
 
-print(response.status_code)
+if response.status_code == 200: 
+    tree = response.text
+else:
+    print(response.status_code)
