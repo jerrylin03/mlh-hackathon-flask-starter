@@ -15,16 +15,6 @@ with open('C:\\Users\\espos\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app
             ratioList.append(va['2019-11'])
             cityList.append(va['RegionName'])
             ratioCity[va['RegionName']] = va['2019-11']
-#print(ratioList)
-#print(cityList)
-#saleToList_file = open("stoLVA.csv", "w")
-#ratioWriter = csv.writer(saleToList_file)
-#
-#ratioWriter.writerow(["CityName", "Ratio"])
-#for key, value in saleToListVA.items():
-#    ratioWriter.writerow([key, value])
-#
-#saleToList_file.close()
 x = 0
 latVA = []
 longVA = []
@@ -46,24 +36,3 @@ with open('C:\\Users\\espos\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app
                 longVA.append(float(csvValues[4]))
                 cityWriter.writerow([csvValues[1], csvValues[3], csvValues[4], ratioCity[csvValues[1]]])
             
-#print(latVA)
-#print(longVA)
-
-#x = 0
-#for i in cityList:
-#    cityWriter.writerow([i, latVA[x], longVA[x], ratioList[x]])
-#    x = x + 1
-    
-#print(longVA)
-  
-#print(saleToListVA.items())
-#print(cityList)
-#for i in saleToListVA.keys():
-#    print(saleToListVA[i])
-    
-#location_file = open("locateVA.csv")
-#locateWriter.writerow(['CityName', 'Latitude', 'Longitude', 'Sales-To-List Ratio'])
-#for k, v in locateVa.items():
-#    
-#    locateWriter.writeRow([k, v[0], v[1, ]])
-
