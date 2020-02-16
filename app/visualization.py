@@ -70,7 +70,9 @@ va = usa[usa.STATE_ABBR == 'VA'].plot(figsize = (48,8), facecolor = 'white', edg
 #x, y = map(long, lat)
 
 plt.scatter(long, lat, c=norm, cmap= 'viridis', s = 20)
-plt.title("Virginia Property Sale-to-List Price Ratios per City (Purple = Low --> Blue = Medium/Average --> Green = High --> Yellow = Highest)")
+plt.title("Virginia Property Sale-to-List Price Ratios per City \n", fontsize = 15)
+plt.xlabel('Longitude (degrees W) \n\n\n| Yellow = Highest |\n| Green = High |\n| Blue = Medium |\n| Purple = Low |\n| Black = Lowest |', fontsize=12)
+plt.ylabel('Latitude (degrees N)', fontsize=12)
 
 #label every plot point with a city name
 #for i, txt in enumerate(name):
