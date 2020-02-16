@@ -10,7 +10,7 @@
 
 * **Jerry Lin**
 * **Tyler Esposo**
-* **TK**
+* **Tukhang Trinh**
 
 ## License
 
