@@ -4,14 +4,18 @@ Created on Sat Feb 15 12:00:36 2020
 
 @author: Tukhang Trinh
 """
-import os
+#import os
+
+#importing of plotting libraries specific to Anaconda
+#os.environ["PROJ_LIB"] = '.\\Anaconda3\\Library\\share'
+
 import csv
-from mpl_toolkits.basemap import Basemap
+#from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 import geopandas as gpd
 
-#importing of plotting libraries specific to Anaconda
-os.environ["PROJ_LIB"] = r'.\Anaconda3\Library\share'
+
+
 
 #parsing csv file of city names, longitude, latitude, and sale-to-list price ratio
 with open('datasets\\cityVA.csv', 'r') as csvFile:
