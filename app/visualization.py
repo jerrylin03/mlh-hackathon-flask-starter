@@ -4,10 +4,18 @@ Created on Sat Feb 15 12:00:36 2020
 
 @author: Tukhang Trinh
 """
+import os
 import csv
+from mpl_toolkits.basemap import Basemap
+import matplotlib.pyplot as plt
+import geopandas as gpd
+
+#importing of plotting libraries specific to Anaconda
+os.environ["PROJ_LIB"] = r'.\Anaconda3\Library\share'
 
 #parsing csv file of city names, longitude, latitude, and sale-to-list price ratio
-with open('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\datasets\\cityVA.csv', 'r') as csvFile:
+with open('datasets\\cityVA.csv', 'r') as csvFile:
+#with open('.\cityVA.csv', 'r') as csvFile:
     name = []
     lat = []
     long = []
@@ -22,18 +30,7 @@ with open('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\d
             long.append(line['Longitude'])
             ratio.append(line['S/L Ratio'])
 
-#print(name)
-#print(lat)
-#print(long)
-#print(ratio)
-
-#importing of plotting libraries
-import os
-os.environ["PROJ_LIB"] = r'C:\Users\2k\Anaconda3\Library\share'
-
-from mpl_toolkits.basemap import Basemap
-import matplotlib.pyplot as plt
-import geopandas as gpd
+#end with
 
 
 #conversion of string to float
@@ -60,15 +57,16 @@ for i in range(0, num):
 #map.drawstates(linewidth = 0.25)
 #map.drawcoastlines(linewidth = 0.25)
 
-#geopandas version of plotting the map of virginia
+#geopandas version of plotting the map of Virginia
 usa = gpd.read_file('./states_21basic/states.shp')
 va = usa[usa.STATE_ABBR == 'VA'].plot(figsize = (48,8), facecolor = 'white', edgecolor = 'black', linewidth = 0.25)
 
+#read shape file of all zip codes in Virginia
 #map.readshapefile('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\datasets\\us-zip-code-latitude-and-longitude\\us-zip-code-latitude-and-longitude', 'us-zip-code-latitude-and-longitude')
 
 #plot coordinates onto a scatter plot 
-x = []
-y = []   
+#x = []
+#y = []   
 #x, y = map(long, lat)
 
 plt.scatter(long, lat, c=norm, cmap= 'viridis', s = 20)
@@ -78,7 +76,7 @@ plt.title("Virginia Property Sale-to-List Price Ratios per City (Purple = Low --
 #for i, txt in enumerate(name):
     #plt.annotate(txt, (x[i], y[i]))
 
-
+#color bar legend
 #pos = plt.imshow(1, vmin = ratioMin, vmax = ratioMax)
 #fig.colorbar(pos)
 
