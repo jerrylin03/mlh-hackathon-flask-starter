@@ -6,8 +6,7 @@ Created on Sat Feb 15 12:00:36 2020
 """
 import csv
 
-#from mpl_toolkits.mplot3d import Axes3D
-
+#parsing csv file of city names, longitude, latitude, and sale-to-list price ratio
 with open('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\datasets\\cityVA.csv', 'r') as csvFile:
     name = []
     lat = []
@@ -23,27 +22,19 @@ with open('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\d
             long.append(line['Longitude'])
             ratio.append(line['S/L Ratio'])
 
-        
-print(name)
-print(lat)
-print(long)
-print(ratio)
+#print(name)
+#print(lat)
+#print(long)
+#print(ratio)
 
-
-    
-#longitude and lagitude of zipcodes
-
-
+#importing of plotting libraries
 import os
-
 os.environ["PROJ_LIB"] = r'C:\Users\2k\Anaconda3\Library\share'
 
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
-from matplotlib import colors
-import statistics
-import math
-
+from matplotlib import cm
+#conversion of string to float
 x = []
 y = []
 num = len(long)
@@ -52,47 +43,41 @@ for i in range(0, num):
     long[i] = float(long[i])
     lat[i] = float(lat[i])
     ratio[i] = float(ratio[i])
-  '''  
-mean = statistics.mean(ratio)
-sd = statistics.stdev(ratio)
-
-for i in range(0,num):
-    newSD = (math.sprt(ratio[i]-mean))/num
-    if (newSD)
-
-above = []
-below = []
-    '''
+   
+#normal distribution, min, and max calculations
+norm = []
     
 ratioMin = min(ratio)
 ratioMax = max(ratio)
-norm = colors.Normalize(vmin = ratioMin, vmax = ratioMax)
-    
-x, y = map(long, lat)
 
-plt.figure(figsize=(48,8))
-plt.scatter(x, y)
+for i in range(0, num):
+    normNum = float((ratio[i]-ratioMin)/(ratioMax-ratioMin))
+    norm.append(normNum)
 
-#label every plot
-for i, txt in enumerate(name):
-    plt.annotate(txt, (x[i], y[i]))
 
-map = Basemap(projection='cyl', llcrnrlon = -84.7, llcrnrlat = 36.23, urcrnrlon = -75.15, urcrnrlat = 39.83, resolution = 'h', epsg = 2283)
+#label every plot point with a city name
+#for i, txt in enumerate(name):
+ #   plt.annotate(txt, (x[i], y[i]))
+
+#zoom in to the state of virginia
+fig = plt.figure(figsize=(48,8))
+map = Basemap(projection='cyl', llcrnrlon = -84.5, llcrnrlat = 36.23, urcrnrlon = -75.15, urcrnrlat = 39.77, resolution = 'h', epsg = 2924)
 map.drawstates(linewidth = 0.25)
 map.drawcoastlines(linewidth = 0.25)
 
+map.readshapefile('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\datasets\\us-zip-code-latitude-and-longitude\\us-zip-code-latitude-and-longitude', 'us-zip-code-latitude-and-longitude')
+
+#plot coordinates onto a scatter plot    
+x, y = map(long, lat)
+
+plt.scatter(x, y, c=norm, cmap= 'viridis')
+plt.title("Virginia Property Sale-to-List Price Ratios per City (Purple = Low --> Blue = Medium/Average --> Green = High --> Yellow = Highest)")
+
+#pos = plt.imshow(1, vmin = ratioMin, vmax = ratioMax)
+#fig.colorbar(pos)
 
 plt.show()
 
-#map.drawstates(linewidth = 0.25)
-#fig = plt.figure()
-#ax = Axes3D(fig)
-
-'''
-ax.azim = 270
-ax.elev = 90
-ax.dist = 5
-'''
 
 #ax.add_collection3d(map.drawcoastlines(linewidth=0.25))
 #ax.add_collection3d(map.drawcountries(linewidth=0.35))
