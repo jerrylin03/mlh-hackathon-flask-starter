@@ -33,6 +33,9 @@ os.environ["PROJ_LIB"] = r'C:\Users\2k\Anaconda3\Library\share'
 
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure, show
+import numpy as np
+from numpy.random import rand
 
 #conversion of string to float
 num = len(long)
@@ -65,12 +68,12 @@ x = []
 y = []   
 x, y = map(long, lat)
 
-plt.scatter(x, y, c=norm, cmap= 'viridis')
+plt.scatter(x, y, c=norm, cmap= 'viridis', s = 20)
 plt.title("Virginia Property Sale-to-List Price Ratios per City (Purple = Low --> Blue = Medium/Average --> Green = High --> Yellow = Highest)")
 
 #label every plot point with a city name
 #for i, txt in enumerate(name):
-#    plt.annotate(txt, (x[i], y[i]))
+    #plt.annotate(txt, (x[i], y[i]))
 
 
 #pos = plt.imshow(1, vmin = ratioMin, vmax = ratioMax)
