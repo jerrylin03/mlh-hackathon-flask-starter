@@ -2,7 +2,7 @@
 """
 Created on Sat Feb 15 12:00:36 2020
 
-@author: 2k
+@author: Tukhang Trinh
 """
 import csv
 
@@ -33,10 +33,8 @@ os.environ["PROJ_LIB"] = r'C:\Users\2k\Anaconda3\Library\share'
 
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
-from matplotlib import cm
+
 #conversion of string to float
-x = []
-y = []
 num = len(long)
 
 for i in range(0, num):
@@ -54,11 +52,6 @@ for i in range(0, num):
     normNum = float((ratio[i]-ratioMin)/(ratioMax-ratioMin))
     norm.append(normNum)
 
-
-#label every plot point with a city name
-#for i, txt in enumerate(name):
- #   plt.annotate(txt, (x[i], y[i]))
-
 #zoom in to the state of virginia
 fig = plt.figure(figsize=(48,8))
 map = Basemap(projection='cyl', llcrnrlon = -84.5, llcrnrlat = 36.23, urcrnrlon = -75.15, urcrnrlat = 39.77, resolution = 'h', epsg = 2924)
@@ -67,17 +60,20 @@ map.drawcoastlines(linewidth = 0.25)
 
 map.readshapefile('C:\\Users\\2k\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app\\datasets\\us-zip-code-latitude-and-longitude\\us-zip-code-latitude-and-longitude', 'us-zip-code-latitude-and-longitude')
 
-#plot coordinates onto a scatter plot    
+#plot coordinates onto a scatter plot 
+x = []
+y = []   
 x, y = map(long, lat)
 
 plt.scatter(x, y, c=norm, cmap= 'viridis')
 plt.title("Virginia Property Sale-to-List Price Ratios per City (Purple = Low --> Blue = Medium/Average --> Green = High --> Yellow = Highest)")
 
+#label every plot point with a city name
+#for i, txt in enumerate(name):
+#    plt.annotate(txt, (x[i], y[i]))
+
+
 #pos = plt.imshow(1, vmin = ratioMin, vmax = ratioMax)
 #fig.colorbar(pos)
 
 plt.show()
-
-
-#ax.add_collection3d(map.drawcoastlines(linewidth=0.25))
-#ax.add_collection3d(map.drawcountries(linewidth=0.35))
