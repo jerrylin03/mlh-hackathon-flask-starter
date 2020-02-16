@@ -35,24 +35,47 @@ print(ratio)
 
 
 import os
+
 os.environ["PROJ_LIB"] = r'C:\Users\2k\Anaconda3\Library\share'
 
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
+from matplotlib import colors
+import statistics
+import math
 
 x = []
 y = []
+num = len(long)
 
-for i in range(0, len(long)):
+for i in range(0, num):
     long[i] = float(long[i])
-    
-for i in range(0, len(lat)):
     lat[i] = float(lat[i])
+    ratio[i] = float(ratio[i])
+  '''  
+mean = statistics.mean(ratio)
+sd = statistics.stdev(ratio)
+
+for i in range(0,num):
+    newSD = (math.sprt(ratio[i]-mean))/num
+    if (newSD)
+
+above = []
+below = []
+    '''
     
+ratioMin = min(ratio)
+ratioMax = max(ratio)
+norm = colors.Normalize(vmin = ratioMin, vmax = ratioMax)
     
 x, y = map(long, lat)
-plt.plot(x, y, 'ro')
 
+plt.figure(figsize=(48,8))
+plt.scatter(x, y)
+
+#label every plot
+for i, txt in enumerate(name):
+    plt.annotate(txt, (x[i], y[i]))
 
 map = Basemap(projection='cyl', llcrnrlon = -84.7, llcrnrlat = 36.23, urcrnrlon = -75.15, urcrnrlat = 39.83, resolution = 'h', epsg = 2283)
 map.drawstates(linewidth = 0.25)
