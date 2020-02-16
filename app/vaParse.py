@@ -35,4 +35,4 @@ with open('C:\\Users\\espos\\Documents\\GitHub\\mlh-hackathon-flask-starter\\app
                 latVA.append(float(csvValues[3]))
                 longVA.append(float(csvValues[4]))
                 cityWriter.writerow([csvValues[1], csvValues[3], csvValues[4], ratioCity[csvValues[1]]])
-            
+city_file.close()
