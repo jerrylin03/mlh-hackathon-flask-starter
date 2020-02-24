@@ -3,6 +3,7 @@ import requests
 import unicodecsv as csv
 import argparse
 import json
+from urllib.request import Request, urlopen
 
 
 def clean(text):
@@ -18,7 +19,7 @@ def get_headers():
                'accept-language': 'en-GB,en;q=0.8,en-US;q=0.6,ml;q=0.4',
                'cache-control': 'max-age=0',
                'upgrade-insecure-requests': '1',
-               'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'}
+               'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/42.0'}
     return headers
 
 
@@ -118,8 +119,11 @@ def parse(zipcode, filter=None):
     if not response:
         print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
         return None
+    
+    req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'})
+    webpage = urlopen(req).read()
 
-    parser = html.fromstring(response.text)
+    parser = html.fromstring(webpage)
     search_results = parser.xpath("//div[@id='search-results']//article")
 
     if not search_results:
@@ -186,3 +190,4 @@ if __name__ == "__main__":
     if scraped_data:
         print ("Writing data to output file")
         write_data_to_csv(scraped_data)
+    
