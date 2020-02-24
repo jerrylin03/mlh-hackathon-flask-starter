@@ -4,14 +4,18 @@ Created on Sat Feb 15 12:00:36 2020
 
 @author: Tukhang Trinh
 """
-import os
+#import os
+
+#importing of plotting libraries specific to Anaconda
+#os.environ["PROJ_LIB"] = '.\\Anaconda3\\Library\\share'
+
 import csv
-from mpl_toolkits.basemap import Basemap
+#from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 import geopandas as gpd
 
-#importing of plotting libraries specific to Anaconda
-os.environ["PROJ_LIB"] = r'.\Anaconda3\Library\share'
+
+
 
 #parsing csv file of city names, longitude, latitude, and sale-to-list price ratio
 with open('datasets\\cityVA.csv', 'r') as csvFile:
@@ -70,7 +74,9 @@ va = usa[usa.STATE_ABBR == 'VA'].plot(figsize = (48,8), facecolor = 'white', edg
 #x, y = map(long, lat)
 
 plt.scatter(long, lat, c=norm, cmap= 'viridis', s = 20)
-plt.title("Virginia Property Sale-to-List Price Ratios per City (Purple = Low --> Blue = Medium/Average --> Green = High --> Yellow = Highest)")
+plt.title("Virginia Home Property Sale-to-List Price Ratios per City \n", fontsize = 15)
+plt.xlabel('Longitude (degrees W) \n\n\n| Yellow = Highest |\n| Green = High |\n| Blue = Medium |\n| Purple = Low |\n| Black = Lowest |', fontsize=12)
+plt.ylabel('Latitude (degrees N)', fontsize=12)
 
 #label every plot point with a city name
 #for i, txt in enumerate(name):
